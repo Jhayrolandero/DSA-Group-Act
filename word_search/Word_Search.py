@@ -56,33 +56,17 @@ def make_matrix():
     return matrix
 
 
-word_search = make_matrix()
-
-title = f"""
-{'=' * 170}
-{'WORD SEARCH'.center(170)}
-{'=' * 170}
-"""
-
-while (True):
-    print(title)
-    for i in range(10):
-        formatted_row = [word.ljust(15) for word in word_search[i]]
-        print(formatted_row, "\n")
-
-    answer = input("\nEnter the word you find in the matrix: ")
-
+def check_answer(answer, word_search):
     found = False
-    index = -1
+    row_index = -1
+    column_index = -1
 
-    # Iterate through the matrix to check if answer is present
+    # Check if the answer contains special characters or digits because it's not a word
+    if re.search(r'[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\|=`0-9]', answer):
+        print("Nope! That's not a word")
+        return
+
     for i, row in enumerate(word_search):
-        # Use regex to identify if it's a word
-        if re.search(r'[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\|=`]', answer) or re.search(r'\d', answer):
-            found = False
-            print("Nope! that's not a word")
-            break
-
         for j, word in enumerate(row):
             if answer.lower() == word.lower():
                 row_index = i
@@ -90,16 +74,37 @@ while (True):
                 found = True
                 break
 
-        # Check if the answer was found
         if found:
             print(
-                f"That's correct! The word '{answer.lower()}' was found at index({row_index+1}, {column_index+1})")
-            break
-        else:
-            print("There is no such word")
-            break
+                f"That's correct! The word '{answer.lower()}' is located at index ({row_index+1}, {column_index+1})")
+            return
 
-    choice = input("\nEnter to continue, 'quit' to exit: ")
+    # Print this message only if the word is not found
+    print("There is no such word")
 
-    if choice == "quit":
-        break
+
+def print_word_search(word_search):
+    for i in range(10):
+        formatted_row = [word.ljust(15) for word in word_search[i]]
+        print(formatted_row)
+
+
+if __name__ == "__main__":
+
+    word_search = make_matrix()
+    title = f"""
+    {'=' * 170}
+    {'WORD SEARCH'.center(170)}
+    {'=' * 170}
+    """
+
+    while True:
+        print(title)
+        print_word_search(word_search)
+
+        answer = input("\nEnter the word you find in the matrix: ")
+        check_answer(answer=answer, word_search=word_search)
+
+        choice = input("\nEnter to continue, 'quit' to exit: ")
+        if choice == "quit":
+            break
