@@ -1,0 +1,3 @@
+[submodule "pytorch_chatbot"]
+	path = pytorch_chatbot
+	url = https://github.com/Jhayrolandero/pytorch_chatbot.git
