@@ -4,21 +4,10 @@ def check_dup_letter(word1: str, word2: str) -> list:
 
     word1 = word1.replace(" ", "").lower()
     word2 = word2.replace(" ", "").lower()
-
-    count1 = 0
-    count2 = 0
     
-    for let in word1:
-        if not let in word2:
-            count1 += 1
-            
-    for let in word2:
-        if not let in word1:
-            count2 += 1
+    count1 = sum(1 for let in word1 if let not in word2)
+    count2 = sum(1 for let in word2 if let not in word1)
 
-    
-    print(count1)
-    print(count2)
     return count1 + count2
 
 def what_flames(word1: str, word2: str) -> str:
@@ -44,3 +33,5 @@ def what_flames(word1: str, word2: str) -> str:
 # Add user input na lang if gusto
 print(what_flames("Jose rizal", "melchora aquino"))
 print(what_flames("Scooby", "Shaggy"))
+print(what_flames("ALICE", "BOB"))
+
