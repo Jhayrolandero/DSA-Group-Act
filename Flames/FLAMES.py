@@ -22,7 +22,7 @@ def what_flames(word1: str, word2: str) -> str:
         3: "Acquaintances",
         4: "Married",
         5: "Enemies",
-        6: "Strangers"
+        0: "Strangers"
     }
 
     return flames[count]
