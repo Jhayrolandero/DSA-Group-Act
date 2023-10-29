@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class matrix {
+public class VerifyMatrix {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -15,8 +15,8 @@ public class matrix {
         int n2 = sc.nextInt();
 
         // Check Validation first before applying operations and inputs
-        if (n1 != m2 && m1 != m2 && n1 != n2) {
-            System.out.println("Matrices cannot be added or multiplied.");
+        if (m1 != m2 || n1 != n2) {
+            System.out.println("Matrices cannot be added or Subtract.");
             System.exit(0);
         }
 
@@ -41,7 +41,7 @@ public class matrix {
         }
 
         int[][] sum = add_matrix(mat1, mat2);
-        int[][] product = multiply_matrix(mat1, mat2);
+        int[][] sub = sub_matrix(mat1, mat2);
 
         // Output the results
         System.out.println("Matrix 1:");
@@ -56,11 +56,11 @@ public class matrix {
             System.out.println("Matrices cannot be added.");
         }
 
-        if (product != null) {
-            System.out.println("Matrix product:");
-            printMatrix(product);
+        if (sub != null) {
+            System.out.println("Matrix Substraction:");
+            printMatrix(sub);
         } else {
-            System.out.println("Matrices cannot be multiplied.");
+            System.out.println("Matrices cannot be substracted.");
         }
 
         sc.close();
@@ -83,7 +83,7 @@ public class matrix {
         int m2 = mat2.length;
         int n2 = mat2[0].length;
 
-        if (m1 != m2 || n1 != n2 && n1 != m2) {
+        if (m1 != m2 || n1 != n2 || m1 != n1 || m2 != n2) {
             return null;
         }
 
@@ -97,27 +97,24 @@ public class matrix {
         return sum;
     }
 
-    // Helper method to multiply two matrices
-    public static int[][] multiply_matrix(int[][] mat1, int[][] mat2) {
+    // Helper method to sub two matrices
+    public static int[][] sub_matrix(int[][] mat1, int[][] mat2) {
         int m1 = mat1.length;
         int n1 = mat1[0].length;
         int m2 = mat2.length;
         int n2 = mat2[0].length;
 
-        if (n1 != m2) {
+        if (m1 != m2 || n1 != n2 && n1 != m2) {
             return null;
         }
 
-        int[][] product = new int[m1][n2];
-
+        int[][] sub = new int[m1][n1];
         for (int i = 0; i < m1; i++) {
-            for (int j = 0; j < n2; j++) {
-                for (int k = 0; k < n1; k++) {
-                    product[i][j] += mat1[i][k] * mat2[k][j];
-                }
+            for (int j = 0; j < n1; j++) {
+                sub[i][j] = mat1[i][j] - mat2[i][j];
             }
         }
 
-        return product;
+        return sub;
     }
 }

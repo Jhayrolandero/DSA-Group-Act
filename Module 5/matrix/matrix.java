@@ -83,7 +83,7 @@ public class matrix {
         int m2 = mat2.length;
         int n2 = mat2[0].length;
 
-        if (m1 != m2 || n1 != n2 && n1 != m2) {
+        if (m1 != m2 || n1 != n2 || m1 != n1 || m2 != n2) {
             return null;
         }
 
